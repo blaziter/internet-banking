@@ -39,3 +39,7 @@
 
 # debug information files
 *.dwo
+
+builddir/
+build/
+subprojects/**

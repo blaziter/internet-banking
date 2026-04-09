@@ -1,0 +1,8 @@
+[wrap-file]
+directory = SQLiteCpp-3.3.3
+source_url = https://github.com/SRombauts/SQLiteCpp/archive/refs/tags/3.3.3.zip
+source_filename = sqlitecpp-3.3.3.zip
+source_hash = 5AF6691760CEBA4C8110258ACE1C3F68A8C481197F75DC45FFAB179019FAF2B5
+
+[provide]
+sqlitecpp = sqlitecpp_dep
