@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <time.h>
 
 #include "utils.hpp"
 
@@ -32,4 +34,21 @@ int printMenu() {
     printVoidLine();
 
     return choice;
+}
+
+std::string generateAccountDetail() {
+    srand(time(0));
+    std::string accountNumber = "";
+
+    for (int i = 0; i < 10; i++) {
+        accountNumber += std::to_string(rand() % 10);
+    }
+
+    accountNumber.insert(10, "/6710");
+
+    /**
+     * ! add check for unique account number
+     */
+
+    return accountNumber;
 }
