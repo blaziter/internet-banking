@@ -13,6 +13,7 @@
             "cppStandard": "gnu++17",
             "intelliSenseMode": "windows-gcc-x64",
             "compileCommands": [
+                "${workspaceFolder}/build/compile_commands.json",
                 "${workspaceFolder}/builddir/compile_commands.json"
             ]
         }
