@@ -11,9 +11,7 @@
  */
 int main() {
 
-    User myUser;
-
-    myUser = myUser.createAccount();
+    User myUser = myUser.createAccount();
 
     return 0;
 }
