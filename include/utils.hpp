@@ -7,5 +7,6 @@ void printVoidLine();
 int printStart();
 int printMenu();
 std::string generateAccountDetail();
+int passwordChecker(std::string password);
 
 #endif
