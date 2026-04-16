@@ -22,5 +22,27 @@ class User {
          tm* birth_date);
 
     User createAccount();
+
+    tm* getCreatedAt();
+
+    tm* getUpdatedAt();
+
+    std::string getFirstName();
+
+    std::string getLastName();
+
+    std::string getAdress();
+
+    std::string getEmail();
+
+    std::string getPhoneNumber();
+
+    void setAccountDetail(std::string account_detail);
+
+    std::string getAccountDetail();
+
+    std::string getPassword();
+
+    tm* getBirthDate();
 };
 #endif

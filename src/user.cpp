@@ -81,3 +81,22 @@ User User::createAccount() {
     return User(first_name, last_name, adress, email, phone_number, password,
                 birth_date);
 }
+
+std::string User::getFirstName() { return this->first_name; }
+
+std::string User::getLastName() { return this->last_name; }
+
+std::string User::getAdress() { return this->adress; }
+
+std::string User::getEmail() { return this->email; }
+
+std::string User::getPhoneNumber() { return this->phone_number; }
+
+void User::setAccountDetail(std::string account_detail) {
+    this->account_detail = account_detail;
+}
+std::string User::getAccountDetail() { return this->account_detail; }
+
+std::string User::getPassword() { return this->password; }
+
+tm* User::getBirthDate() { return this->birth_date; }

@@ -4,6 +4,7 @@ src_sources = files(
   'auth.cpp',
   'account.cpp',
   'card.cpp',
+  'db.cpp',
   'transaction.cpp',
   'user.cpp',
   'utils.cpp',
