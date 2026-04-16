@@ -15,7 +15,8 @@
             "compileCommands": [
                 "${workspaceFolder}/build/compile_commands.json",
                 "${workspaceFolder}/builddir/compile_commands.json"
-            ]
+            ],
+            "configurationProvider": "mesonbuild.mesonbuild"
         }
     ],
     "version": 4

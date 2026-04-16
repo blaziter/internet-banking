@@ -1,16 +1,21 @@
 project(
   'internet-banking',
   'cpp',
-  meson_version : '>= 1.3.0',
-  version : '0.1',
-  default_options : ['warning_level=3', 'cpp_std=c++11'],
+  meson_version: '>= 1.3.0',
+  version: '0.1',
+  default_options: ['warning_level=3', 'cpp_std=c++11'],
 )
 
 subdir('include')
 subdir('src')
 
 dependencies = [
-  dependency('sqlitecpp', required: true, fallback : ['sqlitecpp', 'sqlitecpp_dep']),
+  dependency(
+    'sqlitecpp',
+    default_options: ['default_library=static'],
+    required: true,
+    fallback: ['sqlitecpp', 'sqlitecpp_dep'],
+  ),
 ]
 
 sources = [
@@ -21,12 +26,13 @@ sources = [
 exe = executable(
   'internet-banking',
   sources,
-  dependencies : dependencies,
+  dependencies: dependencies,
   include_directories: [
     include,
     src,
   ],
-  install : true,
+  install: true,
+  link_args: ['-static'],
 )
 
 test('basic', exe)
