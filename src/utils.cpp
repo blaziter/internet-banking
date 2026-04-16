@@ -52,6 +52,7 @@ std::string generateAccountDetail() {
 
     return accountNumber;
 }
+
 int passwordChecker(std::string password) {
     int running = 0;
     int letters = 0;
@@ -62,26 +63,29 @@ int passwordChecker(std::string password) {
     for (int i = 0; i < password.length(); i++) {
         letters++;
 
-        if (letters < 12) {
-            std::cout << "Your password is too short" << std::endl;
-            running = 1;
-            return running;
-        }
-
-        if (password[i] >= 48 && password[i] <= 57) {
+        if (password.at(i) >= 48 && password.at(i) <= 57) {
             numbers++;
-        } else if (password[i] >= 65 && password[i] <= 90) {
+        } else if (password.at(i) >= 65 && password.at(i) <= 90) {
             big_letters++;
-        } else if (password[i] >= 97 && password[i] <= 122) {
+        } else if (password.at(i) >= 97 && password.at(i) <= 122) {
             small_letters++;
         }
+    }
 
-        if (numbers == 0 || big_letters == 0 || small_letters == 0) {
-            std::cout << "Your password does not have required specifications" << std::endl;
-            running = 1;
-            return running;
-        }
-
+    if (letters < 12) {
+        std::cout << "Your password is too short" << std::endl;
+        running = 1;
         return running;
     }
+
+    if (numbers == 0 || big_letters == 0 || small_letters == 0) {
+        std::cout << numbers << " " << big_letters << " " << small_letters
+                  << std::endl;
+        std::cout << "Your password does not have required specifications"
+                  << std::endl;
+        running = 1;
+        return running;
+    }
+
+    return running;
 }

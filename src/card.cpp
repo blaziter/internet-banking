@@ -10,4 +10,5 @@ Card::Card(int card_number, tm expiry_date, unsigned char status,
     this->status = status;
     this->security_number = security_number;
 }
-void Card::cardDetails() {//*generate card number, security number*//}
+
+void Card::cardDetails() { /*generate card number, security number*/ }

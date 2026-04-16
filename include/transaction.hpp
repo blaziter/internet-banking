@@ -12,7 +12,7 @@ class Transaction {
 
    public:
     Transaction(int transaction_id, int sender_account, int receiver_account,
-                double amount, tm date) {}
+                double amount, tm date);
     void transactionDetails();
 };
 #endif

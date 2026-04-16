@@ -11,7 +11,7 @@ class Card {
 
    public:
     Card(int card_number, tm expiry_date, unsigned char status,
-         unsigned char security_number) {}
+         unsigned char security_number);
     void cardDetails();
 };
 

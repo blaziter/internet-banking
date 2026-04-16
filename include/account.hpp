@@ -5,16 +5,15 @@
 
 class Account {
    private:
+    tm created_at;
+    tm updated_at;
     int account_id;
     int user_id;
-    tm created_at;
-
-    tm updated_at;
     std::string account_number;
     int balance;
 
    public:
-    Account(int user_id, std::string account_number, int balance) {}
+    Account(int user_id, std::string account_number, int balance);
     void setBalance(int balance);
 };
 
