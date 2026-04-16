@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-Transaction::Transaction(int transaction_id, int sender_account,
-                         int receiver_account, double amount, tm date) {
+Transaction::Transaction(int transaction_id, std::string sender_account,
+                         std::string receiver_account, double amount, tm date) {
     this->transaction_id = transaction_id;
     this->sender_account = sender_account;
     this->receiver_account = receiver_account;
@@ -15,7 +15,7 @@ Transaction::Transaction(int transaction_id, int sender_account,
 
 void Transaction:: transactionDetails()
 {
-    int receiver_account;
+    std::string receiver_account;
     double amount;
     std:: cout << "Zadej cislo uctu prijemce:" << std::endl;
     std:: cin >> receiver_account;

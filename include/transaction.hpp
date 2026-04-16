@@ -5,13 +5,13 @@
 class Transaction {
    private:
     int transaction_id;
-    int sender_account;
-    int receiver_account;
+    std::string sender_account;
+    std::string receiver_account;
     double amount;
     tm date;
 
    public:
-    Transaction(int transaction_id, int sender_account, int receiver_account,
+    Transaction(int transaction_id, std::string sender_account, std::string receiver_account,
                 double amount, tm date);
     void transactionDetails();
 };
