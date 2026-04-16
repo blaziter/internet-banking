@@ -10,11 +10,11 @@ class Account {
     int account_id;
     int user_id;
     std::string account_number;
-    int balance;
+    double balance;
 
    public:
-    Account(int user_id, std::string account_number, int balance);
-    void setBalance(int balance);
+    Account(int user_id, std::string account_number, double balance);
+    void setBalance(double balance);
 };
 
 #endif

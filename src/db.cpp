@@ -19,7 +19,7 @@ Database::Database() try
             "`created_at` datetime not null default CURRENT_TIMESTAMP,"
             "`updated_at` datetime not null default CURRENT_TIMESTAMP,"
             "`account_detail` varchar(255) not null,"
-            "`balance` integer not null,"
+            "`balance` double not null,"
             "FOREIGN KEY(user_id) REFERENCES user(user_id))");
 
         sqlcppDb.exec(
@@ -42,7 +42,7 @@ Database::Database() try
             "`from_account_id` INTEGER not null,"
             "`to_account_id` INTEGER not null,"
             "`type` TINYINT not null,"
-            "`amount` INTEGER not null,"
+            "`amount` double not null,"
             "FOREIGN KEY (from_account_id) REFERENCES account (account_id) "
             "FOREIGN "
             "KEY (to_account_id) REFERENCES account (account_id))");
