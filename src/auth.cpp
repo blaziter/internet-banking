@@ -25,7 +25,6 @@ bool registration(std::string email, std::string phone_number, User newUser) {
         }
 
         SQLite::Transaction transaction(db);
-        std::string birthDate;
 
         SQLite::Statement insertUser(db,
                                      "INSERT INTO user (user_id, first_name, "
@@ -33,12 +32,6 @@ bool registration(std::string email, std::string phone_number, User newUser) {
                                      "phone_number, account_detail, password, "
                                      "birth_date) VALUES (?, ?, ?, "
                                      "?, ?, ?, ?, ?, ?)");
-
-        birthDate.append(std::to_string(newUser.getBirthDate()->tm_year));
-        birthDate.append("-");
-        birthDate.append(std::to_string(newUser.getBirthDate()->tm_mon));
-        birthDate.append("-");
-        birthDate.append(std::to_string(newUser.getBirthDate()->tm_mday));
 
         insertUser.bind(1, nullptr);
         insertUser.bind(2, newUser.getFirstName());
@@ -48,7 +41,7 @@ bool registration(std::string email, std::string phone_number, User newUser) {
         insertUser.bind(6, newUser.getPhoneNumber());
         insertUser.bind(7, newUser.getAccountDetail());
         insertUser.bind(8, newUser.getPassword());
-        insertUser.bind(9, birthDate);
+        insertUser.bind(9, formatDate(newUser.getBirthDate()));
 
         insertUser.exec();
 

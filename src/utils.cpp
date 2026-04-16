@@ -89,3 +89,21 @@ int passwordChecker(std::string password) {
 
     return running;
 }
+
+std::string formatDate(tm* date) {
+    std::string formattedDate = "";
+
+    formattedDate.append(std::to_string(date->tm_year));
+    formattedDate.append("-");
+
+    int month = date->tm_mon + 1;
+    if (month > 0 && month < 10) {
+        formattedDate.append("0");
+    }
+
+    formattedDate.append(std::to_string(month));
+    formattedDate.append("-");
+    formattedDate.append(std::to_string(date->tm_mday));
+
+    return formattedDate;
+}
