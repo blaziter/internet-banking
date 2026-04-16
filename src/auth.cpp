@@ -61,7 +61,39 @@ bool registration(std::string email, std::string phone_number, User newUser) {
 }
 
 bool login() {
+    SQLite::Database& db = Database::getInstance().getDb();
+    try {
+        std::string email;
     std::string password;
-    std::cout << "Enter your password" << std::endl;
+
+        std::cout << "Zadej email:" << std::endl;
+        std::cin >> email;
+        printVoidLine();
+
+        std::cout << "Zadej heslo:" << std::endl;
     std::cin >> password;
+        printVoidLine();
+
+        SQLite::Statement user(db, "SELECT * FROM user WHERE email = ?");
+
+        user.bind(1, email);
+
+        if (user.executeStep()) {
+            if (user.getColumn("password").getString() == password) {
+                std::cout << "Login successful!" << std::endl;
+                return true;
+            } else {
+                std::cout << "Invalid password!" << std::endl;
+                return false;
+            }
+        } else {
+            std::cout << "User not found!" << std::endl;
+            return false;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+    }
+
+    return true;
 }
+
