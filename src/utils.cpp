@@ -6,9 +6,7 @@
 #include <iostream>
 #include <string>
 
-void printVoidLine() {
-    std::cout << std::endl;
-}
+void printVoidLine() { std::cout << std::endl; }
 
 int printStart() {
     std::cout << "1. Create account" << std::endl;

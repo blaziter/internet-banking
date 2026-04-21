@@ -1,7 +1,8 @@
+#include "user.hpp"
+
 #include <iostream>
 #include <string>
 
-#include "user.hpp"
 #include "utils.hpp"
 
 User::User(std::string first_name, std::string last_name, std::string adress,

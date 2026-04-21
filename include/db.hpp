@@ -5,17 +5,17 @@
 #include <SQLiteCpp/Statement.h>
 
 class Database {
-private:
+   private:
     SQLite::Database sqlcppDb;
     Database();
 
-public:
+   public:
     Database(const Database&) = delete;
     Database& operator=(const Database&) = delete;
 
     static Database& getInstance();
 
-    SQLite::Database& getDb(); 
+    SQLite::Database& getDb();
 };
 
 #endif

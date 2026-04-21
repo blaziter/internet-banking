@@ -1,5 +1,6 @@
 #ifndef USER_H
 #define USER_H
+
 #include <ctime>
 #include <string>
 class User {

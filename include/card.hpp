@@ -1,5 +1,6 @@
 #ifndef CARD_H
 #define CARD_H
+
 #include <ctime>
 
 class Card {

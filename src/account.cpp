@@ -8,4 +8,5 @@ Account::Account(int user_id, std::string account_number, double balance) {
     this->account_number = account_number;
     this->balance = balance;
 }
+
 void Account::setBalance(double balance) { this->balance = balance; }

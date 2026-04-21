@@ -1,10 +1,11 @@
+#include "auth.hpp"
+
 #include <SQLiteCpp/Statement.h>
 #include <SQLiteCpp/Transaction.h>
 
 #include <iostream>
 #include <string>
 
-#include "auth.hpp"
 #include "db.hpp"
 #include "user.hpp"
 #include "utils.hpp"
@@ -57,14 +58,14 @@ bool login() {
     SQLite::Database& db = Database::getInstance().getDb();
     try {
         std::string email;
-    std::string password;
+        std::string password;
 
         std::cout << "Zadej email:" << std::endl;
         std::cin >> email;
         printVoidLine();
 
         std::cout << "Zadej heslo:" << std::endl;
-    std::cin >> password;
+        std::cin >> password;
         printVoidLine();
 
         SQLite::Statement user(db, "SELECT * FROM user WHERE email = ?");
@@ -73,7 +74,7 @@ bool login() {
 
         if (user.executeStep()) {
             if (user.getColumn("password")
-.getString()
+                    .getString()
                     .compare(hashPassword(password)) == 0) {
                 std::cout << "Login successful!" << std::endl;
                 return true;
@@ -91,4 +92,3 @@ bool login() {
 
     return true;
 }
-

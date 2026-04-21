@@ -1,5 +1,6 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
+
 #include <ctime>
 #include <string>
 

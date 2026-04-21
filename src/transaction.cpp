@@ -1,8 +1,9 @@
 #include "transaction.hpp"
-#include "utils.hpp"
 
 #include <iostream>
 #include <string>
+
+#include "utils.hpp"
 
 Transaction::Transaction(int transaction_id, std::string sender_account,
                          std::string receiver_account, double amount, tm date) {
@@ -13,13 +14,12 @@ Transaction::Transaction(int transaction_id, std::string sender_account,
     this->date = date;
 }
 
-void Transaction:: transactionDetails()
-{
+void Transaction::transactionDetails() {
     std::string receiver_account;
     double amount;
-    std:: cout << "Zadej cislo uctu prijemce:" << std::endl;
-    std:: cin >> receiver_account;
+    std::cout << "Zadej cislo uctu prijemce:" << std::endl;
+    std::cin >> receiver_account;
     printVoidLine();
-    std:: cout << "Zadej castku:" << std::endl;
-    std:: cin >> amount;
+    std::cout << "Zadej castku:" << std::endl;
+    std::cin >> amount;
 }
