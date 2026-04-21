@@ -16,6 +16,12 @@ dependencies = [
     required: true,
     fallback: ['sqlitecpp', 'sqlitecpp_dep'],
   ),
+  dependency(
+    'openssl',
+    default_options: ['default_library=static'],
+    required: true,
+    fallback: ['openssl', 'openssl_dep'],
+  ),
 ]
 
 sources = [

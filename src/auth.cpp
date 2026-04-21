@@ -40,7 +40,7 @@ bool registration(std::string email, std::string phone_number, User newUser) {
         insertUser.bind(5, newUser.getEmail());
         insertUser.bind(6, newUser.getPhoneNumber());
         insertUser.bind(7, newUser.getAccountDetail());
-        insertUser.bind(8, newUser.getPassword());
+        insertUser.bind(8, hashPassword(newUser.getPassword()));
         insertUser.bind(9, formatDate(newUser.getBirthDate()));
 
         insertUser.exec();
@@ -72,7 +72,9 @@ bool login() {
         user.bind(1, email);
 
         if (user.executeStep()) {
-            if (user.getColumn("password").getString() == password) {
+            if (user.getColumn("password")
+.getString()
+                    .compare(hashPassword(password)) == 0) {
                 std::cout << "Login successful!" << std::endl;
                 return true;
             } else {

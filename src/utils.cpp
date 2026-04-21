@@ -1,8 +1,10 @@
-#include <iostream>
-#include <string>
+#include "utils.hpp"
+
+#include <openssl/evp.h>
 #include <time.h>
 
-#include "utils.hpp"
+#include <iostream>
+#include <string>
 
 void printVoidLine() {
     std::cout << std::endl;
@@ -106,4 +108,24 @@ std::string formatDate(tm* date) {
     formattedDate.append(std::to_string(date->tm_mday));
 
     return formattedDate;
+}
+
+std::string hashPassword(std::string password) {
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int hashLength;
+
+    EVP_MD_CTX* context = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(context, EVP_sha256(), nullptr);
+    EVP_DigestUpdate(context, password.c_str(), password.length());
+    EVP_DigestFinal_ex(context, hash, &hashLength);
+    EVP_MD_CTX_free(context);
+
+    std::string hashedPassword;
+    for (unsigned int i = 0; i < hashLength; i++) {
+        char buffer[3];
+        sprintf(buffer, "%02x", hash[i]);
+        hashedPassword += buffer;
+    }
+
+    return hashedPassword;
 }
