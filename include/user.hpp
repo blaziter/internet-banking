@@ -5,8 +5,8 @@
 #include <string>
 class User {
    private:
-    tm* created_at;
-    tm* updated_at;
+    tm created_at = {};
+    tm updated_at = {};
     int user_id;
     std::string first_name;
     std::string last_name;
@@ -14,13 +14,13 @@ class User {
     std::string email;
     std::string phone_number;
     std::string password;
-    tm* birth_date;
+    tm birth_date = {};
     std::string account_detail;
 
    public:
     User(std::string first_name, std::string last_name, std::string adress,
          std::string email, std::string phone_number, std::string password,
-         tm* birth_date);
+         tm birth_date);
 
     User createAccount();
 
@@ -44,6 +44,6 @@ class User {
 
     std::string getPassword();
 
-    tm* getBirthDate();
+    tm getBirthDate();
 };
 #endif

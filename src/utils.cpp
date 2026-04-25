@@ -127,3 +127,88 @@ std::string hashPassword(std::string password) {
 
     return hashedPassword;
 }
+int birth_dateChecker(int userDay, int userMonth, int userYear, tm birth_date) {
+    int running = 0;
+    time_t t = time(NULL);
+    tm* now = localtime(&t);
+    time_t raw_time = mktime(&birth_date);
+    int current_year = now->tm_year + 1900;
+    if (userYear < 1900 || userYear > (current_year) || userDay < 1 ||
+        userDay > 31 || userMonth < 1 || userMonth > 12 || raw_time == -1) {
+        std::cout << "Nespravne datum" << std::endl;
+        running = 1;
+        return running;
+    } else if (userYear > (current_year - 15)) {
+        std::cout << "Nemas dostatecny vek pro otevreni uctu" << std::endl;
+        running = 1;
+        return running;
+    }
+
+    return running;
+}
+int phone_numberChecker(std::string phone_number) {
+    int running = 0;
+    int digitCount = 0;
+    for (char c : phone_number) {
+        if (std::isdigit(c)) {
+            digitCount++;
+        } else if (c != '+' && c != '-' && c != ' ' && c != '(' && c != ')') {
+            std::cout << "Neplatne telefonni cislo" << std::endl;
+            running = 1;
+            return running;
+        }
+        if (digitCount >= 7 && digitCount <= 15) {
+            std::cout << "Neplatne telefonni cislo" << std::endl;
+            running = 1;
+            return running;
+        }
+    }
+    return running;
+}
+int emailChecker(std::string email) {
+    int running = 0;
+    size_t findAt = email.find('@');
+    size_t findDot = email.find('.');
+    if (findAt == email.npos || findDot == email.npos) {
+        std::cout << "Spatne zadany email" << std::endl;
+        running = 1;
+        return running;
+    }
+    if (email.empty()) {
+        std::cout << "Spatne zadany email" << std::endl;
+        running = 1;
+        return running;
+    }
+    if (email.back() == '.' || email.back() == '@') {
+        std::cout << "Spatne zadany email" << std::endl;
+        running = 1;
+        return running;
+    }
+    if (email[0] == '.') {
+        std::cout << "Spatne zadany email" << std::endl;
+        running = 1;
+        return running;
+    }
+    for (int i = 0; i < email.length() - 1; i++) {
+        if (email[i] == '.' && email[i + 1] == '.' ||
+            email[i] == '.' && email[i + 1] == '@' ||
+            email[i] == '@' && email[i + 1] == '.') {
+            std::cout << "Spatne zadany email" << std::endl;
+            running = 1;
+            return running;
+        }
+    }
+    std::string username = email.substr(0, findAt);
+    std::string domain = email.substr(findAt + 1);
+    for (char c : username)
+    {
+        if(c == '?' || c == '!' || c == '"' || c == ':' || c == '(' || c == ')' || c == ',' || c == ';' || c == ']' | c == '[' || c == '@' || c == '<' || c == '>')
+        {
+            std::cout << "Spatne zadany email" << std::endl;
+            running = 1;
+            return running;
+        }
+    }
+    
+    return running;
+}

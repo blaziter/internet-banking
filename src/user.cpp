@@ -7,7 +7,7 @@
 
 User::User(std::string first_name, std::string last_name, std::string adress,
            std::string email, std::string phone_number, std::string password,
-           tm* birth_date) {
+           tm birth_date) {
     this->first_name = first_name;
     this->last_name = last_name;
     this->adress = adress;
@@ -24,7 +24,7 @@ User User::createAccount() {
     std::string email;
     std::string phone_number;
     std::string password;
-    tm* birth_date = new tm();
+    tm birth_date = {};
     int running = 0;
 
     std::string confirmPassword;
@@ -40,13 +40,23 @@ User User::createAccount() {
     std::cout << "Zadej adresu:" << std::endl;
     std::getline(std::cin >> std::ws, adress);
     printVoidLine();
+    do {
+        int running = 0;
+        std::cout << "Zadej svuj email:" << std::endl;
+        std::cin >> email;
+        running = emailChecker(email);
+    } while (running == 1);
 
-    std::cout << "Zadej svuj email:" << std::endl;
-    std::cin >> email;
     printVoidLine();
+    do {
+        int running = 0;
+        std::cout << "Zadej svoje tel. cislo (i s predcislim napr +420, +80):"
+                  << std::endl;
 
-    std::cout << "Zadej svoje tel. cislo:" << std::endl;
-    std::cin >> phone_number;
+        std::cin >> phone_number;
+        running = phone_numberChecker(phone_number);
+    } while (running == 1);
+
     printVoidLine();
 
     do {
@@ -66,18 +76,28 @@ User User::createAccount() {
         running = 0;
     } while (running == 1);
 
+    int userDay;
+    int userMonth;
+    int userYear;
     printVoidLine();
-    std::cout << "Zadej den sveho narozeni" << std::endl;
-    std::cin >> birth_date->tm_mday;
-    printVoidLine();
+    do {
+        int running = 0;
+        std::cout << "Zadej den sveho narozeni" << std::endl;
+        std::cin >> userDay;
+        printVoidLine();
 
-    std::cout << "Zadej mesic sveho narozeni" << std::endl;
-    std::cin >> birth_date->tm_mon;
-    printVoidLine();
+        std::cout << "Zadej mesic sveho narozeni" << std::endl;
+        std::cin >> userMonth;
+        printVoidLine();
 
-    std::cout << "Zadej rok sveho narozeni" << std::endl;
-    std::cin >> birth_date->tm_year;
-    printVoidLine();
+        std::cout << "Zadej rok sveho narozeni" << std::endl;
+        std::cin >> userYear;
+        printVoidLine();
+        birth_date.tm_mday = userDay;
+        birth_date.tm_mon = userMonth - 1;
+        birth_date.tm_year = userYear - 1900;
+        running = birth_dateChecker(userDay, userMonth, userYear, birth_date);
+    } while (running == 1);
 
     return User(first_name, last_name, adress, email, phone_number, password,
                 birth_date);
@@ -100,4 +120,4 @@ std::string User::getAccountDetail() { return this->account_detail; }
 
 std::string User::getPassword() { return this->password; }
 
-tm* User::getBirthDate() { return this->birth_date; }
+tm User::getBirthDate() { return this->birth_date; }
