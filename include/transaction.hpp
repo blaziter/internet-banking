@@ -5,7 +5,7 @@
 #include <string>
 class Transaction {
    public:
-    enum type {
+    enum type : int {
         TRANSFER = 1,
         DEPOSIT = 2,
         WITHDRAWAL = 3,
