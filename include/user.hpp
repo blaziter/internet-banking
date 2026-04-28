@@ -24,10 +24,6 @@ class User {
 
     User createAccount();
 
-    tm* getCreatedAt();
-
-    tm* getUpdatedAt();
-
     std::string getFirstName();
 
     std::string getLastName();

@@ -41,21 +41,17 @@ User User::createAccount() {
     std::getline(std::cin >> std::ws, adress);
     printVoidLine();
     do {
-        int running = 0;
         std::cout << "Zadej svuj email:" << std::endl;
         std::cin >> email;
-        running = emailChecker(email);
-    } while (running == 1);
+    } while (emailChecker(email) != true);
 
     printVoidLine();
     do {
-        int running = 0;
         std::cout << "Zadej svoje tel. cislo (i s predcislim napr +420, +80):"
                   << std::endl;
 
         std::cin >> phone_number;
-        running = phone_numberChecker(phone_number);
-    } while (running == 1);
+    } while (phone_numberChecker(phone_number) != true);
 
     printVoidLine();
 
@@ -64,24 +60,19 @@ User User::createAccount() {
                      "znaku, musi obsahovat mala a velka pismena a cislice):"
                   << std::endl;
         std::cin >> password;
-        running = passwordChecker(password);
         std::cout << "Zadej heslo znovu pro potvrzeni:" << std::endl;
         std::cin >> confirmPassword;
 
         if (confirmPassword.compare(password) != 0) {
-            std::cout << "Hesla se neshoduji, zadej heslo znovu" << std::endl;
-            running = 1;
+            std::cout << "Hesla se neshoduji, zadej heslo znovu" << std::endl; 
         }
-
-        running = 0;
-    } while (running == 1);
+    } while (passwordChecker(password) != true || confirmPassword.compare(password) != 0);
 
     int userDay;
     int userMonth;
     int userYear;
     printVoidLine();
     do {
-        int running = 0;
         std::cout << "Zadej den sveho narozeni" << std::endl;
         std::cin >> userDay;
         printVoidLine();
@@ -96,8 +87,7 @@ User User::createAccount() {
         birth_date.tm_mday = userDay;
         birth_date.tm_mon = userMonth - 1;
         birth_date.tm_year = userYear - 1900;
-        running = birth_dateChecker(userDay, userMonth, userYear, birth_date);
-    } while (running == 1);
+    } while (birth_dateChecker(userDay, userMonth, userYear, birth_date) != true);
 
     return User(first_name, last_name, adress, email, phone_number, password,
                 birth_date);
