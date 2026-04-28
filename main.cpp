@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "account.hpp"
 #include "auth.hpp"
@@ -21,6 +22,8 @@
 int main() {
     Database::getInstance().getDb();
 
+    std::vector<std::string> accountDetails;
+
     int running = 1;
     while (running == 1) {
         int choice = printStart();
@@ -28,7 +31,8 @@ int main() {
             case 1: {
                 User newUser = newUser.createAccount();
 
-                std::string accountNumber = generateAccountDetail();
+                std::string accountNumber =
+                    generateAccountDetail(accountDetails);
                 newUser.setAccountDetail(accountNumber);
 
                 registration(newUser.getEmail(), newUser.getPhoneNumber(),

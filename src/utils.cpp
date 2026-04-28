@@ -1,10 +1,14 @@
 #include "utils.hpp"
 
+#include <SQLiteCpp/Statement.h>
 #include <openssl/evp.h>
 #include <time.h>
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+#include "db.hpp"
 
 void printVoidLine() { std::cout << std::endl; }
 
@@ -36,19 +40,40 @@ int printMenu() {
     return choice;
 }
 
-std::string generateAccountDetail() {
+std::string generateAccountDetail(std::vector<std::string> accountDetails) {
     srand(time(0));
     std::string accountNumber = "";
+    bool unique = true;
 
-    for (int i = 0; i < 10; i++) {
-        accountNumber += std::to_string(rand() % 10);
+    try {
+        SQLite::Statement query(Database::getInstance().getDb(),
+                                "SELECT account_detail FROM user OFFSET ?");
+
+        int offset = accountDetails.size();
+
+        query.bind(1, offset);
+
+        while (query.executeStep()) {
+            accountDetails.push_back(query.getColumn(0).getString());
+        }
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
     }
 
-    accountNumber.insert(10, "/6710");
+    while (unique) {
+        for (int i = 0; i < 10; i++) {
+            accountNumber += std::to_string(rand() % 10);
+        }
 
-    /**
-     * ! add check for unique account number
-     */
+        accountNumber.insert(10, "/6710");
+
+        for (std::string detail : accountDetails) {
+            if (detail.compare(accountNumber) == 0) {
+                unique = false;
+                break;
+            }
+        }
+    }
 
     return accountNumber;
 }
