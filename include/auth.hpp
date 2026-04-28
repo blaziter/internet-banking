@@ -7,6 +7,5 @@
 
 bool registration(std::string email, std::string phone_number, User newUser);
 bool login();
-bool authenticate();
 
 #endif
