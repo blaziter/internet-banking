@@ -46,7 +46,7 @@ int main() {
                 running = 0;
                 break;
             default:
-                std::cout << "Invalid input" << std::endl;
+                std::cout << "Nespravny input" << std::endl;
                 break;
         }
 
@@ -69,7 +69,7 @@ int main() {
                     // Logout function
                     break;
                 default:
-                    std::cout << "Invalid input" << std::endl;
+                    std::cout << "Nespravny input" << std::endl;
                     break;
             }
         }

@@ -86,8 +86,8 @@ Database::Database() try
         transaction.commit();
     }
 } catch (const std::exception& e) {
-    std::cerr << "Failed to open database: " << e.what() << std::endl;
-    std::cout << "Exiting..." << std::endl;
+    std::cerr << "Nepodarilo se otevrit databazi " << e.what() << std::endl;
+    std::cout << "Vypinani aplikace..." << std::endl;
     std::exit(EXIT_FAILURE);
 }
 

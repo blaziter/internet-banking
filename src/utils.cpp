@@ -13,10 +13,10 @@
 void printVoidLine() { std::cout << std::endl; }
 
 int printStart() {
-    std::cout << "1. Create account" << std::endl;
-    std::cout << "2. Login" << std::endl;
-    std::cout << "3. Exit" << std::endl;
-    std::cout << "Enter your choice: ";
+    std::cout << "1. Vytvorit ucet" << std::endl;
+    std::cout << "2. Prihlasit se" << std::endl;
+    std::cout << "3. Zavrit aplikaci" << std::endl;
+    std::cout << "Tvoje volba: ";
 
     int choice;
     std::cin >> choice;
@@ -26,12 +26,12 @@ int printStart() {
 };
 
 int printMenu() {
-    std::cout << "1. View account details" << std::endl;
-    std::cout << "2. Transfer money" << std::endl;
-    std::cout << "3. Deposit money" << std::endl;
-    std::cout << "4. Withdraw money" << std::endl;
-    std::cout << "5. Logout" << std::endl;
-    std::cout << "Enter your choice: ";
+    std::cout << "1. Detaily uctu" << std::endl;
+    std::cout << "2. Platba na jiny ucet" << std::endl;
+    std::cout << "3. Pridat penize" << std::endl;
+    std::cout << "4. Vybrat penize" << std::endl;
+    std::cout << "5. Odhlasit se" << std::endl;
+    std::cout << "Tvoje volba: ";
 
     int choice;
     std::cin >> choice;
@@ -97,14 +97,14 @@ bool passwordChecker(std::string password) {
     }
 
     if (letters < 12) {
-        std::cout << "Your password is too short" << std::endl;
+        std::cout << "Tvoje heslo je prilis kratke" << std::endl;
         return false;
     }
 
     if (numbers == 0 || big_letters == 0 || small_letters == 0) {
         std::cout << numbers << " " << big_letters << " " << small_letters
                   << std::endl;
-        std::cout << "Your password does not have required specifications"
+        std::cout << "Tvoje heslo nesplnuje pozadavky"
                   << std::endl;
         return false;
     }

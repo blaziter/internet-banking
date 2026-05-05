@@ -21,7 +21,7 @@ bool registration(std::string email, std::string phone_number, User newUser) {
         user.bind(2, phone_number);
 
         while (user.executeStep()) {
-            std::cout << "User already exists!" << std::endl;
+            std::cout << "Uzivatel uz existuje" << std::endl;
             return false;
         }
 
@@ -76,14 +76,14 @@ bool login() {
             if (user.getColumn("password")
                     .getString()
                     .compare(hashPassword(password)) == 0) {
-                std::cout << "Login successful!" << std::endl;
+                std::cout << "Uspesne prihlaseni" << std::endl;
                 return true;
             } else {
-                std::cout << "Invalid password!" << std::endl;
+                std::cout << "Nespravne heslo" << std::endl;
                 return false;
             }
         } else {
-            std::cout << "User not found!" << std::endl;
+            std::cout << "Uživatel nenalezen" << std::endl;
             return false;
         }
     } catch (const std::exception& e) {
