@@ -78,7 +78,7 @@ std::string generateAccountDetail(std::vector<std::string> accountDetails) {
     return accountNumber;
 }
 
-bool passwordChecker(std::string password) {
+bool passwordChecker(const std::string& password) {
     int letters = 0;
     int small_letters = 0;
     int big_letters = 0;
@@ -104,8 +104,7 @@ bool passwordChecker(std::string password) {
     if (numbers == 0 || big_letters == 0 || small_letters == 0) {
         std::cout << numbers << " " << big_letters << " " << small_letters
                   << std::endl;
-        std::cout << "Tvoje heslo nesplnuje pozadavky"
-                  << std::endl;
+        std::cout << "Tvoje heslo nesplnuje pozadavky" << std::endl;
         return false;
     }
 
@@ -130,7 +129,7 @@ std::string formatDate(tm date) {
     return formattedDate;
 }
 
-std::string hashPassword(std::string password) {
+std::string hashPassword(const std::string& password) {
     unsigned char hash[EVP_MAX_MD_SIZE];
     unsigned int hashLength;
 
@@ -149,12 +148,14 @@ std::string hashPassword(std::string password) {
 
     return hashedPassword;
 }
+
 bool birth_dateChecker(int userDay, int userMonth, int userYear,
                        tm birth_date) {
     time_t t = time(NULL);
     tm* now = localtime(&t);
     time_t raw_time = mktime(&birth_date);
     int current_year = now->tm_year + 1900;
+
     if (userYear < 1900 || userYear > (current_year) || userDay < 1 ||
         userDay > 31 || userMonth < 1 || userMonth > 12 || raw_time == -1) {
         std::cout << "Nespravne datum" << std::endl;
@@ -166,8 +167,10 @@ bool birth_dateChecker(int userDay, int userMonth, int userYear,
 
     return true;
 }
-bool phone_numberChecker(std::string phone_number) {
+
+bool phone_numberChecker(const std::string& phone_number) {
     int digitCount = 0;
+
     for (char c : phone_number) {
         if (std::isdigit(c)) {
             digitCount++;
@@ -175,6 +178,7 @@ bool phone_numberChecker(std::string phone_number) {
             std::cout << "Neplatne telefonni cislo" << std::endl;
             return false;
         }
+
         if (digitCount >= 7 && digitCount <= 15) {
             std::cout << "Neplatne telefonni cislo" << std::endl;
             return false;
@@ -182,25 +186,30 @@ bool phone_numberChecker(std::string phone_number) {
     }
     return true;
 }
-bool emailChecker(std::string email) {
+
+bool emailChecker(const std::string& email) {
     size_t findAt = email.find('@');
     size_t findDot = email.find('.');
     if (findAt == email.npos || findDot == email.npos) {
         std::cout << "Spatne zadany email" << std::endl;
         return false;
     }
+
     if (email.empty()) {
         std::cout << "Spatne zadany email" << std::endl;
         return false;
     }
+
     if (email.back() == '.' || email.back() == '@') {
         std::cout << "Spatne zadany email" << std::endl;
         return false;
     }
+
     if (email[0] == '.') {
         std::cout << "Spatne zadany email" << std::endl;
         return false;
     }
+
     for (int i = 0; i < email.length() - 1; i++) {
         if (email[i] == '.' && email[i + 1] == '.' ||
             email[i] == '.' && email[i + 1] == '@' ||
@@ -209,13 +218,16 @@ bool emailChecker(std::string email) {
             return false;
         }
     }
+
     std::string username = email.substr(0, findAt);
     std::string domain = email.substr(findAt + 1);
+
     for (char c : username) {
         if (c == '?' || c == '!' || c == '"' || c == ':' || c == '(' ||
             c == ')' || c == ',' || c == ';' || c == ']' || c == '[' ||
             c == '@' || c == '<' || c == '>') {
             std::cout << "Spatne zadany email" << std::endl;
+
             return false;
         }
     }

@@ -5,8 +5,9 @@
 
 #include "utils.hpp"
 
-User::User(std::string first_name, std::string last_name, std::string adress,
-           std::string email, std::string phone_number, std::string password,
+User::User(const std::string& first_name, const std::string& last_name,
+           const std::string& adress, const std::string& email,
+           const std::string& phone_number, const std::string& password,
            tm birth_date) {
     this->first_name = first_name;
     this->last_name = last_name;
@@ -64,9 +65,10 @@ User User::createAccount() {
         std::cin >> confirmPassword;
 
         if (confirmPassword.compare(password) != 0) {
-            std::cout << "Hesla se neshoduji, zadej heslo znovu" << std::endl; 
+            std::cout << "Hesla se neshoduji, zadej heslo znovu" << std::endl;
         }
-    } while (passwordChecker(password) != true || confirmPassword.compare(password) != 0);
+    } while (passwordChecker(password) != true ||
+             confirmPassword.compare(password) != 0);
 
     int userDay;
     int userMonth;
@@ -87,7 +89,8 @@ User User::createAccount() {
         birth_date.tm_mday = userDay;
         birth_date.tm_mon = userMonth - 1;
         birth_date.tm_year = userYear - 1900;
-    } while (birth_dateChecker(userDay, userMonth, userYear, birth_date) != true);
+    } while (birth_dateChecker(userDay, userMonth, userYear, birth_date) !=
+             true);
 
     return User(first_name, last_name, adress, email, phone_number, password,
                 birth_date);
@@ -103,7 +106,7 @@ std::string User::getEmail() { return this->email; }
 
 std::string User::getPhoneNumber() { return this->phone_number; }
 
-void User::setAccountDetail(std::string account_detail) {
+void User::setAccountDetail(const std::string& account_detail) {
     this->account_detail = account_detail;
 }
 std::string User::getAccountDetail() { return this->account_detail; }

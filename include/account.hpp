@@ -14,7 +14,7 @@ class Account {
     double balance;
 
    public:
-    Account(int user_id, std::string account_number, double balance);
+    Account(int user_id, const std::string& account_number, double balance);
     void setBalance(double balance);
 };
 

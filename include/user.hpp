@@ -18,8 +18,9 @@ class User {
     std::string account_detail;
 
    public:
-    User(std::string first_name, std::string last_name, std::string adress,
-         std::string email, std::string phone_number, std::string password,
+    User(const std::string& first_name, const std::string& last_name,
+         const std::string& adress, const std::string& email,
+         const std::string& phone_number, const std::string& password,
          tm birth_date);
 
     User createAccount();
@@ -34,7 +35,7 @@ class User {
 
     std::string getPhoneNumber();
 
-    void setAccountDetail(std::string account_detail);
+    void setAccountDetail(const std::string& account_detail);
 
     std::string getAccountDetail();
 

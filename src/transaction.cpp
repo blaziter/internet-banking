@@ -2,6 +2,7 @@
 
 #include <SQLiteCpp/Statement.h>
 #include <SQLiteCpp/Transaction.h>
+#include <time.h>
 
 #include <iostream>
 #include <string>
@@ -9,8 +10,8 @@
 #include "db.hpp"
 #include "utils.hpp"
 
-Transaction::Transaction(int transaction_id, std::string sender_account,
-                         std::string receiver_account, double amount, tm date,
+Transaction::Transaction(int transaction_id, const std::string& sender_account,
+                         const std::string& receiver_account, double amount, tm date,
                          type transaction_type) {
     this->transaction_id = transaction_id;
     this->sender_account = sender_account;
@@ -46,11 +47,11 @@ void Transaction::setTransactionId(int transaction_id) {
     this->transaction_id = transaction_id;
 }
 
-void Transaction::setSenderAccount(std::string sender_account) {
+void Transaction::setSenderAccount(const std::string& sender_account) {
     this->sender_account = sender_account;
 }
 
-void Transaction::setReceiverAccount(std::string receiver_account) {
+void Transaction::setReceiverAccount(const std::string& receiver_account) {
     this->receiver_account = receiver_account;
 }
 
