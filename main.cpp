@@ -20,37 +20,55 @@
  * @brief The main function of the internet banking application.
  */
 int main() {
+    /**
+     * * Initialize the database connection and create tables if they do not exist
+     */
     Database::getInstance().getDb();
+    bool isLoggedIn = false;
 
+    /**
+     * * Redis "alike" vector for caching account details for faster access and to generate unique account numbers
+     */
     std::vector<std::string> accountDetails;
 
-    int running = 1;
-    while (running == 1) {
-        int choice = printStart();
-        switch (choice) {
-            case 1: {
-                User newUser = newUser.createAccount();
+    bool isRunning = true;
+    while (isRunning) {
+        if (!isLoggedIn) {
+            int choice = printStart();
+            switch (choice) {
+                /**
+                 * * Registration case
+                 */
+                case 1: {
+                    User newUser = newUser.createAccount();
 
-                std::string accountNumber =
-                    generateAccountDetail(accountDetails);
-                newUser.setAccountDetail(accountNumber);
+                    std::string accountNumber =
+                        generateAccountDetail(accountDetails);
+                    newUser.setAccountDetail(accountNumber);
 
-                registration(newUser.getEmail(), newUser.getPhoneNumber(),
-                             newUser);
-                break;
+                    registration(newUser.getEmail(), newUser.getPhoneNumber(),
+                                 newUser);
+                    break;
+                }
+                /**
+                 * * Login case
+                 */
+                case 2:
+                    login() ? isLoggedIn = true : isLoggedIn = false;
+                    break;
+                /**
+                 * * Exit case
+                 */
+                case 3:
+                    isRunning = false;
+                    break;
+                default:
+                    std::cout << "Nespravny input" << std::endl;
+                    break;
             }
-            case 2:
-                login();
-                break;
-            case 3:
-                running = 0;
-                break;
-            default:
-                std::cout << "Nespravny input" << std::endl;
-                break;
         }
 
-        if (choice == 2) {
+        if (isLoggedIn) {
             int choice2 = printMenu();
             switch (choice2) {
                 case 1:
@@ -67,6 +85,7 @@ int main() {
                     break;
                 case 5:
                     // Logout function
+                    isLoggedIn = false;
                     break;
                 default:
                     std::cout << "Nespravny input" << std::endl;
