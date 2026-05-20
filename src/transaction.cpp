@@ -10,14 +10,15 @@
 #include "db.hpp"
 #include "utils.hpp"
 
-Transaction::Transaction(int transaction_id, const std::string& sender_account,
-                         const std::string& receiver_account, double amount, tm date,
+Transaction::Transaction(int transaction_id, tm created_at,
+                         const std::string& sender_account,
+                         const std::string& receiver_account, double amount,
                          type transaction_type) {
     this->transaction_id = transaction_id;
+    this->created_at = created_at;
     this->sender_account = sender_account;
     this->receiver_account = receiver_account;
     this->amount = amount;
-    this->date = date;
     this->transaction_type = transaction_type;
 }
 
@@ -39,7 +40,7 @@ std::string Transaction::getReceiverAccount() { return receiver_account; }
 
 double Transaction::getAmount() { return amount; }
 
-tm Transaction::getDate() { return date; }
+tm Transaction::getCreated_at() { return created_at; }
 
 Transaction::type Transaction::getTransactionType() { return transaction_type; }
 
@@ -62,7 +63,8 @@ void Transaction::setTransactionType(type transaction_type) {
 }
 
 void Transaction::transferMoney(const std::string& sender_account,
-                                const std::string& receiver_account, double amount) {
+                                const std::string& receiver_account,
+                                double amount) {
     if (sender_account == receiver_account) {
         std::cout << "Nelze prevest penize na stejny ucet" << std::endl;
         return;
@@ -126,21 +128,14 @@ void Transaction::transferMoney(const std::string& sender_account,
         SQLite::Statement insertTransaction(
             db,
             "INSERT INTO transaction (transaction_id, sender_account, "
-            "receiver_account, amount, date, transaction_type) VALUES (?, ?, "
-            "?, ?, ?, ?);");
-
-        tm date = {};
-        time_t t = time(NULL);
-        date = *localtime(&t);
-
-        date.tm_year += 1900;
+            "receiver_account, amount, transaction_type) VALUES (?, ?, "
+            "?, ?, ?);");
 
         insertTransaction.bind(1, nullptr);
         insertTransaction.bind(2, sender_account);
         insertTransaction.bind(3, receiver_account);
         insertTransaction.bind(4, amount);
-        insertTransaction.bind(5, formatDate(date));
-        insertTransaction.bind(6, Transaction::TRANSFER);
+        insertTransaction.bind(5, Transaction::TRANSFER);
         insertTransaction.exec();
 
         transaction.commit();

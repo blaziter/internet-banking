@@ -10,11 +10,19 @@ class Account {
     tm updated_at;
     int account_id;
     int user_id;
-    std::string account_number;
+    std::string account_detail;
     double balance;
 
    public:
-    Account(int user_id, const std::string& account_number, double balance);
+    Account(int user_id, const std::string& account_detail, double balance);
+
+    int getUserId();
+    void setUserId(int user_id);
+
+    std::string getAccountDetail();
+    void setAccountDetail(const std::string& account_detail);
+
+    double getBalance();
     void setBalance(double balance);
 };
 

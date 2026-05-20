@@ -15,6 +15,7 @@ class Transaction {
 
    private:
     int transaction_id;
+    tm created_at;
     std::string sender_account;
     std::string receiver_account;
     double amount;
@@ -22,22 +23,26 @@ class Transaction {
     type transaction_type;
 
    public:
-    Transaction(int transaction_id, const std::string& sender_account,
-                const std::string& receiver_account, double amount, tm date,
+    Transaction(int transaction_id, tm created_at,
+                const std::string& sender_account,
+                const std::string& receiver_account, double amount,
                 type transaction_type);
+
     void transactionDetails();
     int getTransactionId();
     std::string getSenderAccount();
     std::string getReceiverAccount();
     double getAmount();
-    tm getDate();
+    tm getCreated_at();
     type getTransactionType();
+
     void setTransactionId(int transaction_id);
     void setSenderAccount(const std::string& sender_account);
     void setReceiverAccount(const std::string& receiver_account);
     void setAmount(double amount);
     void setTransactionType(type transaction_type);
-    void transferMoney(const std::string& sender_account, const std::string& receiver_account,
-                       double amount);
+
+    void transferMoney(const std::string& sender_account,
+                       const std::string& receiver_account, double amount);
 };
 #endif
