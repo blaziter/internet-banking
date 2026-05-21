@@ -112,16 +112,14 @@ void Transaction::transferMoney(const std::string& sender_account,
         SQLite::Transaction transaction(db);
 
         SQLite::Statement updateSenderBalance(
-            db,
-            "UPDATE account SET balance = balance - ? WHERE account_id = ?;");
-        updateSenderBalance.bind(1, amount);
+            db, "UPDATE account SET balance = ? WHERE account_id = ?;");
+        updateSenderBalance.bind(1, senderBalance - amount);
         updateSenderBalance.bind(2, sender_account);
         updateSenderBalance.exec();
 
         SQLite::Statement updateReceiverBalance(
-            db,
-            "UPDATE account SET balance = balance + ? WHERE account_id = ?;");
-        updateReceiverBalance.bind(1, amount);
+            db, "UPDATE account SET balance = ? WHERE account_id = ?;");
+        updateReceiverBalance.bind(1, receiverBalanceValue + amount);
         updateReceiverBalance.bind(2, receiver_account);
         updateReceiverBalance.exec();
 

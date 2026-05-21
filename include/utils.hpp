@@ -8,7 +8,7 @@ void printVoidLine();
 int printStart();
 int printMenu();
 std::string generateAccountDetail(std::vector<std::string> accountDetails);
-bool passwordChecker(std::string password);
+bool passwordChecker(const std::string& password);
 std::string formatDate(tm date);
 std::string hashPassword(const std::string& password);
 bool birth_dateChecker(int userDay, int userMonth, int userYear, tm birth_date);

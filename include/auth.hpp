@@ -5,7 +5,7 @@
 
 #include "user.hpp"
 
-bool registration(std::string email, std::string phone_number, User newUser);
+bool registration(const std::string& email, const std::string& phone_number, User& newUser);
 bool login();
 
 #endif

@@ -26,7 +26,6 @@ User User::createAccount() {
     std::string phone_number;
     std::string password;
     tm birth_date = {};
-    int running = 0;
 
     std::string confirmPassword;
 
