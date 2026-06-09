@@ -11,7 +11,7 @@
 #include "utils.hpp"
 
 bool registration(const std::string& email, const std::string& phone_number,
-                User& newUser) {
+                  User& newUser) {
     SQLite::Database& db = Database::getInstance().getDb();
 
     try {
