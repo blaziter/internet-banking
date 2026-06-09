@@ -43,35 +43,44 @@ int printMenu() {
 std::string generateAccountDetail(std::vector<std::string> accountDetails) {
     srand(time(0));
     std::string accountNumber = "";
-    bool unique = true;
 
     try {
-        SQLite::Statement query(Database::getInstance().getDb(),
-                                "SELECT account_detail FROM user OFFSET ?");
+        int offset = accountDetails.size() != 0 ? accountDetails.size() - 1 : 0;
 
-        int offset = accountDetails.size();
+        SQLite::Statement query(
+            Database::getInstance().getDb(),
+            offset > 0 ? "SELECT account_detail FROM user OFFSET ?;"
+                       : "SELECT account_detail FROM user;");
 
-        query.bind(1, offset);
+        if (offset > 0) {
+            query.bind(1, offset);
+        }
 
         while (query.executeStep()) {
             accountDetails.push_back(query.getColumn(0).getString());
         }
     } catch (const std::exception& e) {
-        std::cerr << e.what() << '\n';
+        std::cerr << "generateAccountDetail db error: " << e.what() << '\n';
     }
 
-    while (unique) {
+    while (true) {
+        accountNumber.clear();
         for (int i = 0; i < 10; i++) {
             accountNumber += std::to_string(rand() % 10);
         }
 
         accountNumber.insert(10, "/6710");
 
+        bool duplicate = false;
         for (std::string detail : accountDetails) {
             if (detail.compare(accountNumber) == 0) {
-                unique = false;
+                duplicate = true;
                 break;
             }
+        }
+
+        if (!duplicate) {
+            break;
         }
     }
 
@@ -114,7 +123,7 @@ bool passwordChecker(const std::string& password) {
 std::string formatDate(tm date) {
     std::string formattedDate = "";
 
-    formattedDate.append(std::to_string(date.tm_year));
+    formattedDate.append(std::to_string(date.tm_year + 1900));
     formattedDate.append("-");
 
     int month = date.tm_mon + 1;
@@ -178,11 +187,11 @@ bool phone_numberChecker(const std::string& phone_number) {
             std::cout << "Neplatne telefonni cislo" << std::endl;
             return false;
         }
+    }
 
-        if (digitCount >= 7 && digitCount <= 15) {
-            std::cout << "Neplatne telefonni cislo" << std::endl;
-            return false;
-        }
+    if (digitCount < 7 || digitCount > 15) {
+        std::cout << "Neplatne telefonni cislo" << std::endl;
+        return false;
     }
     return true;
 }
