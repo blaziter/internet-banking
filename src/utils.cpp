@@ -246,3 +246,20 @@ bool emailChecker(const std::string& email) {
 
     return true;
 }
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the password of the user. It checks if the new password meets the requirements and is different from the old password.
+ * @param password The current password of the user.
+ */
+std::string changePassword(const std::string& password) {
+    std::string newPassword;
+    do {
+        std::cout << "Zadej nove heslo do aplikace(Heslo musi byt 12 a vice "
+                     "znaku, musi obsahovat mala a velka pismena a cislice):"
+                  << std::endl;
+        std::cin >> newPassword;
+    } while (passwordChecker(newPassword) != true || newPassword.compare(password) == 0);
+
+    return newPassword;
+}

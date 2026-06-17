@@ -84,7 +84,7 @@ bool login() {
                 return false;
             }
         } else {
-            std::cout << "Uživatel nenalezen" << std::endl;
+            std::cout << "Uzivatel nenalezen" << std::endl;
             return false;
         }
     } catch (const std::exception& e) {

@@ -14,4 +14,10 @@ std::string hashPassword(const std::string& password);
 bool birth_dateChecker(int userDay, int userMonth, int userYear, tm birth_date);
 bool phone_numberChecker(const std::string& phone_number);
 bool emailChecker(const std::string& email);
+std::string changePassword(const std::string& password);
+std::string changeEmail(const std::string& email);
+std::string changePhoneNumber(const std::string& phone_number);
+std::string changeAdress(const std::string& adress);
+std::string changeFirstName(const std::string& first_name);
+std::string changeLastName(const std::string& last_name);
 #endif
