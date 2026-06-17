@@ -138,6 +138,33 @@ std::string formatDate(tm date) {
     return formattedDate;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Convert a date string in "YYYY-MM-DD" format to a tm structure.
+ * @param dateString The date string to convert.
+ * @return The converted tm structure.
+ */
+tm getTmFromDateString(const std::string& dateString) {
+    tm date = {};
+
+    if (dateString.length() != 10) {
+        std::cerr << "Invalid date format. Expected format: YYYY-MM-DD"
+                  << std::endl;
+        return date;
+    }
+
+    try {
+        date.tm_year = std::stoi(dateString.substr(0, 4)) - 1900;
+        date.tm_mon = std::stoi(dateString.substr(5, 2)) - 1;
+        date.tm_mday = std::stoi(dateString.substr(8, 2));
+    } catch (const std::exception& e) {
+        std::cerr << "Error parsing date: " << e.what() << std::endl;
+        return date;
+    }
+
+    return date;
+}
+
 std::string hashPassword(const std::string& password) {
     unsigned char hash[EVP_MAX_MD_SIZE];
     unsigned int hashLength;

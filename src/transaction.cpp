@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "db.hpp"
 #include "utils.hpp"
@@ -141,3 +142,48 @@ void Transaction::transferMoney(const std::string& sender_account,
         std::cerr << e.what() << '\n';
     }
 };
+
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Get transactions for a given account number and date range, and stores
+ * them in the provided vector.
+ * @param transactions A pointer to a vector where the retrieved transactions
+ * will be stored.
+ * @param account_number The account number for which to retrieve transactions.
+ * @param start_date The start date of the date range for which to retrieve
+ * transactions (in "YYYY-MM-DD" format).
+ * @param end_date The end date of the date range for which to retrieve
+ * transactions (in "YYYY-MM-DD" format).
+ */
+void Transaction::getTransactionsByDate(std::vector<Transaction>* transactions,
+                                        const std::string& account_number,
+                                        const std::string& start_date,
+                                        const std::string& end_date) {
+    SQLite::Database& db = Database::getInstance().getDb();
+    try {
+        SQLite::Statement selectTransactions(
+            db,
+            "SELECT * FROM transaction WHERE (sender_account = ? OR "
+            "receiver_account = ?) AND created_at BETWEEN ? AND ?;");
+
+        selectTransactions.bind(1, account_number);
+        selectTransactions.bind(2, account_number);
+        selectTransactions.bind(3, start_date);
+        selectTransactions.bind(4, end_date);
+
+        while (selectTransactions.executeStep()) {
+            transactions->push_back(Transaction(
+                selectTransactions.getColumn("transaction_id").getInt(),
+                getTmFromDateString(
+                    selectTransactions.getColumn("date").getString()),
+                selectTransactions.getColumn("sender_account").getString(),
+                selectTransactions.getColumn("receiver_account").getString(),
+                selectTransactions.getColumn("amount").getDouble(),
+                Transaction::type(
+                    selectTransactions.getColumn("transaction_type")
+                        .getInt())));
+        }
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+    }
+}

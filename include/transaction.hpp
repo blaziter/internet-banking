@@ -3,6 +3,8 @@
 
 #include <ctime>
 #include <string>
+#include <vector>
+
 class Transaction {
    public:
     enum type : int {
@@ -23,8 +25,7 @@ class Transaction {
     type transaction_type;
 
    public:
-    Transaction(int transaction_id, tm created_at,
-                const std::string& sender_account,
+    Transaction(int transaction_id, tm date, const std::string& sender_account,
                 const std::string& receiver_account, double amount,
                 type transaction_type);
 
@@ -44,5 +45,10 @@ class Transaction {
 
     void transferMoney(const std::string& sender_account,
                        const std::string& receiver_account, double amount);
+    static void getTransactionsByDate(std::vector<Transaction>* transactions,
+                                      const std::string& account_number,
+                                      const std::string& start_date,
+                                      const std::string& end_date);
 };
+
 #endif
