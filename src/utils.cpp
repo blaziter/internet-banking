@@ -249,7 +249,8 @@ bool emailChecker(const std::string& email) {
 
 /**
  * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
- * @brief Function to change the password of the user. It checks if the new password meets the requirements and is different from the old password.
+ * @brief Function to change the password of the user. It checks if the new
+ * password meets the requirements and is different from the old password.
  * @param password The current password of the user.
  */
 std::string changePassword(const std::string& password) {
@@ -259,7 +260,92 @@ std::string changePassword(const std::string& password) {
                      "znaku, musi obsahovat mala a velka pismena a cislice):"
                   << std::endl;
         std::cin >> newPassword;
-    } while (passwordChecker(newPassword) != true || newPassword.compare(password) == 0);
+    } while (passwordChecker(newPassword) != true ||
+             newPassword.compare(password) == 0);
 
     return newPassword;
+}
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the phone number of the user. It checks if the new
+ * phone number meets the requirements and is different from the old phone
+ * number.
+ * @param phone_number The current phone number of the user.
+ */
+std::string changePhoneNumber(const std::string& phone_number) {
+    std::string newPhoneNumber;
+    do {
+        std::cout << "Zadej nove telefonni cislo do aplikace (Telefonni cislo "
+                     "musi zacinat s + a obsahovat 7-15 cislic): "
+                  << std::endl;
+        std::cin >> newPhoneNumber;
+    } while (phone_numberChecker(newPhoneNumber) != true ||
+             newPhoneNumber.compare(phone_number) == 0);
+
+    return newPhoneNumber;
+}
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the email of the user. It checks if the new email
+ * meets the requirements and is different from the old email.
+ * @param email The current email of the user.
+ */
+
+std::string changeEmail(const std::string& email) {
+    std::string newEmail;
+    do {
+        std::cout << "Zadej novy email do aplikace (Email musi obsahovat @ a . "
+                     "a nesmi obsahovat mezery): "
+                  << std::endl;
+        std::cin >> newEmail;
+    } while (emailChecker(newEmail) != true || newEmail.compare(email) == 0);
+
+    return newEmail;
+}
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the address of the user. It checks if the new
+ * address is different from the old address.
+ * @param adress The current address of the user.
+ */
+
+std::string changeAdress(const std::string& adress) {
+    std::string newAdress;
+    std::cout << "Zadej novou adresu do aplikace: " << std::endl;
+    std::getline(std::cin >> std::ws, newAdress);
+
+    return newAdress;
+}
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the first name of the user. It checks if the new
+ * first name is different from the old first name.
+ * @param first_name The current first name of the user.
+ */
+
+std::string changeFirstName(const std::string& first_name) {
+    std::string newFirstName;
+    std::cout << "Zadej nove jmeno do aplikace: " << std::endl;
+    std::cin >> newFirstName;
+
+    return newFirstName;
+}
+
+/**
+ * @author "Pavel Tomšík(pavel.tomsik2@unob.cz)"
+ * @brief Function to change the last name of the user. It checks if the new
+ * last name is different from the old last name.
+ * @param last_name The current last name of the user.
+ */
+
+std::string changeLastName(const std::string& last_name) {
+    std::string newLastName;
+    std::cout << "Zadej nove prijmeni do aplikace: " << std::endl;
+    std::cin >> newLastName;
+
+    return newLastName;
 }
