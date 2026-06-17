@@ -179,11 +179,14 @@ bool birth_dateChecker(int userDay, int userMonth, int userYear,
 
 bool phone_numberChecker(const std::string& phone_number) {
     int digitCount = 0;
-
-    for (char c : phone_number) {
-        if (std::isdigit(c)) {
+    if(phone_number[0] != '+') {
+        std::cout << "Neplatne telefonni cislo" << std::endl;
+        return false;
+    }
+    for (int i = 1; i < phone_number.length(); i++) {
+        if (std::isdigit(phone_number[i])) {
             digitCount++;
-        } else if (c != '+' && c != '-' && c != ' ' && c != '(' && c != ')') {
+        } else if (phone_number[i] == '+') {
             std::cout << "Neplatne telefonni cislo" << std::endl;
             return false;
         }

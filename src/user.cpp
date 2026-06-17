@@ -60,14 +60,15 @@ User User::createAccount() {
                      "znaku, musi obsahovat mala a velka pismena a cislice):"
                   << std::endl;
         std::cin >> password;
+    } while (passwordChecker(password) != true);
+    do {
         std::cout << "Zadej heslo znovu pro potvrzeni:" << std::endl;
         std::cin >> confirmPassword;
 
         if (confirmPassword.compare(password) != 0) {
             std::cout << "Hesla se neshoduji, zadej heslo znovu" << std::endl;
         }
-    } while (passwordChecker(password) != true ||
-             confirmPassword.compare(password) != 0);
+    } while (confirmPassword.compare(password) != 0);
 
     int userDay;
     int userMonth;
@@ -78,7 +79,7 @@ User User::createAccount() {
         std::cin >> userDay;
         printVoidLine();
 
-        std::cout << "Zadej mesic sveho narozeni" << std::endl;
+        std::cout << "Zadej mesic sveho narozeni (cislo)" << std::endl;
         std::cin >> userMonth;
         printVoidLine();
 
