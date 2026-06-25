@@ -63,6 +63,15 @@ void Transaction::setTransactionType(type transaction_type) {
     this->transaction_type = transaction_type;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Transfer money from one account to another. It checks if the sender
+ * and receiver exists, and if the sender has enough balance and then records
+ * the transaction in the database.
+ * @param sender_account The account number of the sender.
+ * @param receiver_account The account number of the receiver.
+ * @param amount The amount of money to transfer.
+ */
 void Transaction::transferMoney(const std::string& sender_account,
                                 const std::string& receiver_account,
                                 double amount) {

@@ -40,6 +40,11 @@ int printMenu() {
     return choice;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Generate a unique account detail string.
+ * @param accountDetails A vector of existing account details.
+ */
 std::string generateAccountDetail(std::vector<std::string> accountDetails) {
     srand(time(0));
     std::string accountNumber = "";
@@ -120,6 +125,11 @@ bool passwordChecker(const std::string& password) {
     return true;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Format a tm structure into a date string in "YYYY-MM-DD" format.
+ * @param date The tm structure to format.
+ */
 std::string formatDate(tm date) {
     std::string formattedDate = "";
 
@@ -165,6 +175,11 @@ tm getTmFromDateString(const std::string& dateString) {
     return date;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Hash a password using SHA-256.
+ * @param password The password to hash.
+ */
 std::string hashPassword(const std::string& password) {
     unsigned char hash[EVP_MAX_MD_SIZE];
     unsigned int hashLength;

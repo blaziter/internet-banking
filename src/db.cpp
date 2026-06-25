@@ -6,6 +6,11 @@
 
 #include <iostream>
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Database class constructor. It initializes the SQLite database
+ * connection and creates the necessary tables if they do not exist.
+ */
 Database::Database() try
     : sqlcppDb("db.sqlite", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) {
     if (!sqlcppDb.tableExists("account") && !sqlcppDb.tableExists("card") &&
@@ -93,9 +98,19 @@ Database::Database() try
     std::exit(EXIT_FAILURE);
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Get the singleton instance of the Database class.
+ * @return Reference to the Database instance.
+ */
 Database& Database::getInstance() {
     static Database instance;
     return instance;
 }
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Get the SQLite database connection.
+ * @return Reference to the SQLite database connection.
+ */
 SQLite::Database& Database::getDb() { return sqlcppDb; }
