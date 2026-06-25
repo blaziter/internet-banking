@@ -10,6 +10,15 @@
 #include "user.hpp"
 #include "utils.hpp"
 
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Function to register a new user in the database. It checks if the
+ * email or phone number already exists in the database before inserting the
+ * new user.
+ * @param email The email of the new user.
+ * @param phone_number The phone number of the new user.
+ * @param newUser The User object containing the details of the new user.
+ */
 bool registration(const std::string& email, const std::string& phone_number,
                   User& newUser) {
     SQLite::Database& db = Database::getInstance().getDb();
@@ -55,7 +64,14 @@ bool registration(const std::string& email, const std::string& phone_number,
     return true;
 }
 
-bool login() {
+/**
+ * @author "Petr Tran(petr.tran@unob.cz)"
+ * @brief Function to login a user by checking the provided email and password
+ * with values in database. If the credentials match, then save parameters to a
+ * User object.
+ *  @param user Pointer to a User object that will contain user parameters.
+ */
+bool login(User* user) {
     SQLite::Database& db = Database::getInstance().getDb();
     try {
         std::string email;
@@ -69,15 +85,29 @@ bool login() {
         std::cin >> password;
         printVoidLine();
 
-        SQLite::Statement user(db, "SELECT * FROM user WHERE email = ?");
+        SQLite::Statement stmt(
+            db,
+            "SELECT * FROM user WHERE email = ? INNER JOIN account ON "
+            "user.id = account.user_id");
 
-        user.bind(1, email);
+        stmt.bind(1, email);
 
-        if (user.executeStep()) {
-            if (user.getColumn("password")
+        if (stmt.executeStep()) {
+            if (stmt.getColumn("password")
                     .getString()
                     .compare(hashPassword(password)) == 0) {
                 std::cout << "Uspesne prihlaseni" << std::endl;
+
+                *user = User(stmt.getColumn("first_name").getString(),
+                             stmt.getColumn("last_name").getString(),
+                             stmt.getColumn("address").getString(),
+                             stmt.getColumn("email").getString(),
+                             stmt.getColumn("phone_number").getString(),
+                             stmt.getColumn("password").getString(),
+                             stmt.getColumn("account_detail").getString(),
+                             getTmFromDateString(
+                                 stmt.getColumn("birth_date").getString()));
+
                 return true;
             } else {
                 std::cout << "Nespravne heslo" << std::endl;

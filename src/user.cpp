@@ -18,6 +18,19 @@ User::User(const std::string& first_name, const std::string& last_name,
     this->birth_date = birth_date;
 }
 
+User::User(const std::string& first_name, const std::string& last_name,
+           const std::string& adress, const std::string& email,
+           const std::string& phone_number, const std::string& password,
+           const std::string& account_detail, tm birth_date)
+    : first_name(first_name),
+      last_name(last_name),
+      adress(adress),
+      email(email),
+      phone_number(phone_number),
+      password(password),
+      account_detail(account_detail),
+      birth_date(birth_date) {}
+
 User User::createAccount() {
     std::string first_name;
     std::string last_name;

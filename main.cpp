@@ -21,15 +21,18 @@
  */
 int main() {
     /**
-     * * Initialize the database connection and create tables if they do not exist
+     * * Initialize the database connection and create tables if they do not
+     * * exist
      */
     Database::getInstance().getDb();
     bool isLoggedIn = false;
 
     /**
-     * * Redis "alike" vector for caching account details for faster access and to generate unique account numbers
+     * * Redis "alike" vector for caching account details for faster access and
+     * to generate unique account numbers
      */
     std::vector<std::string> accountDetails;
+    User *currentUser;
 
     bool isRunning = true;
     while (isRunning) {
@@ -54,7 +57,8 @@ int main() {
                  * * Login case
                  */
                 case 2:
-                    login() ? isLoggedIn = true : isLoggedIn = false;
+                    login(currentUser) ? isLoggedIn = true
+                                        : isLoggedIn = false;
                     break;
                 /**
                  * * Exit case
@@ -86,6 +90,7 @@ int main() {
                 case 5:
                     // Logout function
                     isLoggedIn = false;
+                    currentUser = nullptr;
                     break;
                 default:
                     std::cout << "Nespravny input" << std::endl;
